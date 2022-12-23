@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="container">
+        
+        <div class="news-wrapper">
+            {% for n in news %}
+            <div class="news-inner">
+                <img src="{{ n.image.url }}" alt="news-image">
+                <h2>{{n.title}}</h2>
+                <p>{{ n.description | truncatewords_html:20 | safe }}</p>
+
+                <a href="{% url 'news_detail' n.id %}">Подробнее</a>
+                <div class="news-footer">
+                    <span class="author">{{ n.author }}</span>
+                    <span class="date">{{ n.created }}</span>
+                    <span class="views">👁{{n.views}}</span>
+                    <a href="{% url 'news_like' n.id %}">{{n.likes}}</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
