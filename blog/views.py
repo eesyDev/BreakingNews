@@ -1,17 +1,27 @@
 from django.shortcuts import render, redirect
 from .models import Category, News, Like
-from .weather import get_weather
 
 
 def index(request):
     news = News.objects.all()
     categories = Category.objects.all()
-    weather = get_weather()
+    index_categories = []
+    for category in categories:
+        item = {
+            'id': category.id,
+            'title': category.title,
+            'link': category.slug,
+            'news': News.objects.filter(category__id=category.id),
+
+        }
+        index_categories.append(item)
+    
     context = {
         'news': news,
         'categories': categories, 
-        'weather': weather
+        'index_categories': index_categories[:4]
     }
+
     return render(request, 'index.html', context=context)
 
 
@@ -24,15 +34,13 @@ def news_detail(request, pk):
 
 
 def get_news_category(request, slug):
+    category = Category.objects.get(slug=slug)
     news = News.objects.filter(category__slug=slug)
     context = {
         'news': news,
+        'category': category
     }
-    return render(request, 'index.html', context=context)
-
-def show_weather(request):
-    weather = get_weather()
-    return render(request, 'index.html', context={'weather': weather})
+    return render(request, 'category.html', context=context)
 
 
 def like_view(user, news):

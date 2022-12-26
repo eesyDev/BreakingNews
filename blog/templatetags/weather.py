@@ -1,7 +1,6 @@
 from django import template
 # from blog.models import Category
 KEY = 'c4c262d37c005ded7291cf0659d6b01e'
-daily = 'b6ea5ca4052d9551852631e82e0720a8'
 import requests
 import geocoder as g
 import datetime

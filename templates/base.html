@@ -1,5 +1,8 @@
-{%load static%}
+{% load static %}
 {% load weather %}
+{% load currency %}
+{% load cache %}
+{% load nasdaq_indexes %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -14,17 +17,15 @@
 </head>
 <body>
     {% include 'inc/_header.html' %}
-
+    {% cache 20 index %}{% show_index %}{% endcache %}
 <div class="container">
+        {% show_currency %}
     <div class="page-heading">
         <div class="page-heading__wrapper">
             <div class="page-heading__left">
                 <span class="title">Сводка новостей</span>
-                <span class="date">{{weather.day}}, {{weather.date}}</span>
             </div>
-            <div class="page-heading__weather">
-                {% show_weather %}
-            </div>
+            {% show_weather %}
         </div>
     </div>
 </div>
@@ -32,5 +33,6 @@
     {% block content %}
 
     {% endblock %}
+    {% block category %}{%endblock%}
 </body>
 </html>

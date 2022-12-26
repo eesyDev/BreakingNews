@@ -19,7 +19,7 @@ class News(models.Model):
     description = models.TextField()
     image = models.ImageField(upload_to='news/')
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-    category = models.ManyToManyField(Category)
+    category = models.ManyToManyField(Category, related_name='category_news')
     created = models.DateTimeField(auto_now_add=True)
     views = models.PositiveIntegerField(default=0)
     likes = models.PositiveIntegerField(default=0)
