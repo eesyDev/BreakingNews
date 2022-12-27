@@ -1,19 +1,9 @@
 import requests
-from bs4 import BeautifulSoup
-from twelvedata import TDClient
 from django import template
+from django.conf import settings
 
-from .config import API_KEY_TWELVE
+API_KEY_TWELVE = settings.API_KEY_TWELVE
 
-# td = TDClient(apikey=f"{API_KEY_TWELVE}")
- 
-# ts = td.time_series(
-#     symbol="AAPL",
-#     interval="1day",
-#     outputsize=1,
-# )
- 
-# print(ts.as_json())
 
 def get_index():
     req = requests.get(f'https://api.twelvedata.com/time_series?symbol=AAPL,VFIAX,AAON,JPM,ZM,TCS&interval=1day&apikey={API_KEY_TWELVE}')

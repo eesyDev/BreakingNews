@@ -1,10 +1,12 @@
 from django import template
+from django.conf import settings
 # from blog.models import Category
-KEY = 'c4c262d37c005ded7291cf0659d6b01e'
 import requests
 import geocoder as g
 import datetime
 
+
+KEY = settings.KEY_WEATHER
 def get_weather():
     city = g.ip('me').city
     req = requests.get(

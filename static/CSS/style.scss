@@ -9,9 +9,7 @@ body {
     background-color: #f6f8fc;
     margin: 0;
 }
-.container {
-    padding: 0 150px;
-}
+
 ul {
     list-style-type: none;
     padding: 0;
@@ -21,8 +19,13 @@ a {
     text-decoration: none;
     color: inherit;
 }
-img {
+
+img, svg {
     max-width: 100%;
+    max-height: 100%;
+}
+.container {
+    padding: 0 10px;
 }
 
 .header {
@@ -31,22 +34,54 @@ img {
     .navigation-list {
         display: flex;
         list-style-type: none;
+        align-items: center;
         li {
             margin: 0 20px;
+            &:nth-child(n+4) {
+                display: none;
+            }
         }
         .logo {
-            font-size: 2.5em;
-            font-weight: 700;
+            width: 100px;
+            height: 60px;
+        }
+    }
+    &-wrapper {
+        .navigation {
+            grid-column: span 6;
+        }
+        .registr {
+            grid-column: span 2;
+        }
+        .search {
+            grid-column: span 4;
+            input {
+                border: none;
+                background-color: #f6f8fc;
+                width: 100%;
+                height: 48px;
+                border-radius: 8px;
+                padding-left: 40px;
+                color: #000;
+                position :relative;
+            }
+            form {
+                position: relative;
+            }
+            button {
+                border: none;
+                position: absolute;
+                right: 0;
+                width: 50px;
+                top: 50%;
+                transform: translateY(-50%);
+                background: transparent;
+            }
         }
     }
 }
 .page-heading {
     padding: 30px 0;
-    &__wrapper {
-        display: grid;
-        grid-template-columns: repeat(12,minmax(0,1fr));
-        gap: 32px;
-    }
     &__left {
         display: flex;
         flex-direction: column;
@@ -78,13 +113,10 @@ img {
     }
 }
 
-.news-wrapper {
-    // display: flex;
-    // flex-wrap: wrap;
-    // margin: 0 -30px;
+.grid-template {
     display: grid;
     grid-template-columns: repeat(12,minmax(0,1fr));
-    gap: 32px;
+    gap: 12px;
 }
 .news-inner {
     display: flex;
@@ -132,9 +164,6 @@ img {
 }
 
 .news {
-    display: grid;
-    grid-template-columns: repeat(12,minmax(0,1fr));
-    gap: 32px;
     .big-part {
         grid-column: span 8;
     }
@@ -255,12 +284,9 @@ img {
 }
 
 .page-exchange {
-    display: grid;
-    grid-template-columns: repeat(12,minmax(0,1fr));
-    margin-top: 30px;
-    gap: 32px;
+    margin-top: 15px;
     &__currency {
-        grid-column: span 2;
+        grid-column: span 4;
         background: #fff;
         border-radius: 6px;
         padding: 25px;
@@ -284,10 +310,10 @@ img {
         padding: 25px;
     }
     &__petrol {
-        grid-column: span 2;
+        grid-column: span 4;
     }
     &__metal, &__crypto {
-        grid-column: span 4;
+        grid-column: span 8;
     }
     .summary-table {
         width: 100%;
@@ -354,18 +380,14 @@ img {
 }
 
 .index-data {
-    display: grid;
-    grid-template-columns: repeat(12,minmax(0,1fr));
-    margin-top: 30px;
-    gap: 32px;
-    
+    margin-top: 15px;
     &__item {
         display: flex;
         flex-direction: column;
         background-color: #fff;
         border-radius: 6px;
-        padding: 20px;
-        grid-column: span 2;
+        padding: 10px;
+        grid-column: span 6;
         &-top, &-bottom {
             display: flex;
             justify-content: space-between;
@@ -392,6 +414,51 @@ img {
     }
 }
 
+@media (min-width: 1440px) {
+    .container {
+        padding: 0 150px;
+    }
+}
+@media (min-width: 1190px) {
+    .container {
+        padding: 0 120px;
+    }
+    .index-data {
+        &__item {
+            grid-column: span 2;
+            padding: 30px;
+        }
+    }
+    .page-exchange {
+        margin-top: 30px;
+        &__petrol, &__currency {
+            grid-column: span 2;
+        }
+        &__crypto, &__metal {
+            grid-column: span 4;
+        }
+    }
+}
+@media (min-width: 1024px) {
+    .container {
+        padding: 0 100px;
+    }
+    .grid-template {
+        gap: 32px;
+    }
+}
+@media (min-width: 920px) {
+    .container {
+        padding: 0 60px;
+    }
+    .index-data {
+        margin-top: 30px;
+        &__item {
+            grid-column: span 4;
+        }
+    }
+
+}
 @media (min-width: 768px) {
     .table-symbol {
         font-size: 24px;

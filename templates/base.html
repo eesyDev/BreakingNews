@@ -21,7 +21,7 @@
 <div class="container">
         {% show_currency %}
     <div class="page-heading">
-        <div class="page-heading__wrapper">
+        <div class="page-heading__wrapper grid-template">
             <div class="page-heading__left">
                 <span class="title">Сводка новостей</span>
             </div>
@@ -34,5 +34,15 @@
 
     {% endblock %}
     {% block category %}{%endblock%}
+    {% if message %}
+        <div class="notification-modal">
+            <div>
+                {{message}}
+            </div>
+            
+        </div>
+    {% endif %}
+
+    <script src="{% static 'js/main.js' %}"></script>
 </body>
 </html>

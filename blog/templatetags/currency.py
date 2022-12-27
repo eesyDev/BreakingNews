@@ -1,12 +1,15 @@
+from django import template
+from django.conf import settings
+
 import requests
 from bs4 import BeautifulSoup
-from django import template
+
 
 HEADERS = {
     'User-Agent':'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:100.0) Gecko/20100101 Firefox/100.0',
     "accept": "text/html, application/xhtml+xml, application/xml;q=0.9, */*;q=0.8" 
 }
-URL = 'https://finance.kapital.kz/'
+URL = settings.URL
 
 
 def get_html(URL, headers=HEADERS, params=' '):

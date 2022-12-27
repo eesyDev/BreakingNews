@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block category %}
 <div class="container">
-    <div class="news-wrapper">
+    <div class="news-wrapper grid-template">
             {% for n in news %}
             <div class="news-inner">
                 <img src="{{ n.image.url }}" alt="news-image">

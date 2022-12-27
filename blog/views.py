@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.shortcuts import render, redirect
 from .models import Category, News, Like
 
@@ -58,11 +59,46 @@ def like_view(user, news):
 def news_like(request, news_id):
     news = News.objects.get(id=news_id)
     user = request.user
-    like_view(user=user, news=news)
-    return redirect('/')
+    if user.is_authenticated:
+        like_view(user=user, news=news)
+        return redirect('/')
+
+    news = News.objects.all()
+    categories = Category.objects.all()
+    index_categories = []
+    for category in categories:
+        item = {
+            'id': category.id,
+            'title': category.title,
+            'link': category.slug,
+            'news': News.objects.filter(category__id=category.id),
+
+        }
+        index_categories.append(item)
+    context = {
+        'news': news,
+        'categories': categories,
+        'index_categories': index_categories[:4],
+        'message': 'Что бы поставить лайк Регистрируйтесь или Авторизуйтесь'
+    }
+    return render(request, 'index.html', context=context)
+
 
 def news_like_detail(request, news_id):
     news = News.objects.get(id=news_id)
     user = request.user
-    like_view(user=user, news=news)
-    return render(request, 'news_detail.html', context={'n': news})
+    if user.is_authenticated:
+        like_view(user=user, news=news)
+        return render(request, 'news_detail.html', context={'n': news})
+        
+    return render(request, 'news_detail.html', context={
+        'n': news,
+        'message': 'Что бы поставить лайк Регистрируйтесь или Авторизуйтесь'
+    })
+
+
+def search(request):
+    q = request.GET.get('s')
+    news = News.objects.filter(Q(title__icontains=q) | Q(description__icontains=q))
+    context = {'news': news}
+    return render(request, 'category.html', context=context)
